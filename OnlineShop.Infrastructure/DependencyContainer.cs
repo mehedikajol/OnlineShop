@@ -16,13 +16,16 @@ public static class DependencyContainer
         IConfigurationManager config, 
         string connectionStringName = "DefaultConnection")
     {
+        // context
         services.AddDbContext<AppDbContext>(options =>
         {
             options.UseSqlServer(config.GetConnectionString(connectionStringName));  
         });
 
+        // repositories
         services.AddScoped<ICouponRepository, CouponRepository>();
 
+        // services
         services.AddScoped<ICouponService, CouponService>();
 
         return services;
