@@ -3,7 +3,7 @@ using OnlineShop.Domain.Enums;
 
 namespace OnlineShop.Domain.Entities;
 
-public class Coupon : Entity<Guid>
+public class Coupon : Entity
 {
     public string Code { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;

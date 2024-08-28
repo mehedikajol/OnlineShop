@@ -2,6 +2,6 @@
 
 namespace OnlineShop.Domain.Repositories;
 
-public interface ICouponRepository : IRepository<Coupon, Guid>
+public interface ICouponRepository : IRepository<Coupon>
 {
 }

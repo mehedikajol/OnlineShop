@@ -1,40 +1,41 @@
-﻿using OnlineShop.Domain.Entities.Base;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineShop.Domain.Entities.Base;
 using OnlineShop.Domain.Repositories;
+using OnlineShop.Infrastructure.Data;
 using System.Linq.Expressions;
 
 namespace OnlineShop.Infrastructure.Repositories;
 
-internal abstract class Repository<TEntity, TId> : IRepository<TEntity, TId>
-    where TEntity : class, IEntity<TId>
+internal abstract class Repository<TEntity> : IRepository<TEntity>
+    where TEntity : class, IEntity
 {
-    public Task CreateAsync(TEntity entity)
+    protected readonly AppDbContext _context;
+    protected readonly DbSet<TEntity> _dbSet;
+
+    protected Repository(AppDbContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
+        _dbSet = _context.Set<TEntity>();
     }
 
-    public Task DeleteAsync(TId id)
+    public async Task<IReadOnlyCollection<TEntity>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _dbSet.ToListAsync();
     }
 
-    public Task<IReadOnlyCollection<TEntity>> GetAllAsync()
+    public async Task<IReadOnlyCollection<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        throw new NotImplementedException();
+        return await _dbSet.Where(predicate).ToListAsync();
     }
 
-    public Task<IReadOnlyCollection<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate)
+    public async Task<TEntity?> GetAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await GetAsync(p => p.Id == id);
     }
 
-    public Task<TEntity?> GetAsync(TId id)
+    public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate)
-    {
-        throw new NotImplementedException();
+        return await _dbSet.FirstOrDefaultAsync(predicate);
     }
 
     public Task<(IReadOnlyCollection<TEntity> Data, int Total, bool HasPrevious, bool HasNext)> GetPagedAsync(int pageSize, int pageIndex, string orderColumn, string orderBy)
@@ -42,8 +43,43 @@ internal abstract class Repository<TEntity, TId> : IRepository<TEntity, TId>
         throw new NotImplementedException();
     }
 
-    public Task UpdateAsync(TEntity entity)
+    public async Task CreateAsync(TEntity entity)
     {
-        throw new NotImplementedException();
+        if (entity is null)
+        {
+            throw new ArgumentNullException(nameof(entity));
+        }
+
+        _dbSet.Add(entity);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync(TEntity entity)
+    {
+        if (entity is null)
+        {
+            throw new ArgumentNullException(nameof(entity));
+        }
+
+        if (_context.Entry(entity).State == EntityState.Detached)
+        {
+            _dbSet.Attach(entity);
+        }
+
+        _context.Entry(entity).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task DeleteAsync(Guid id)
+    {
+        var entity = await _dbSet.FindAsync(id);
+
+        if (entity is null)
+        {
+            return;
+        }
+
+        _dbSet.Remove(entity);
+        await _context.SaveChangesAsync();
     }
 }

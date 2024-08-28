@@ -1,8 +1,8 @@
 ﻿namespace OnlineShop.Domain.Entities.Base;
 
-public abstract class Entity<TId> : IEntity<TId>
+public abstract class Entity : IEntity
 {
-    public required TId Id { get; set; }
+    public Guid Id { get; set; }
 
     public Guid CreatedBy { get; set; }
     public DateTime CreatedAt { get; set; }
