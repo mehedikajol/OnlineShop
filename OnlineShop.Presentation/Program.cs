@@ -16,7 +16,6 @@ var builder = WebApplication.CreateBuilder(args);
             {
                 return context.HandlerValidationErrors();
             };
-            options.SuppressModelStateInvalidFilter = false;
         });
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
