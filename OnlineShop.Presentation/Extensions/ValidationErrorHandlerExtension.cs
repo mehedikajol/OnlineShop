@@ -5,16 +5,16 @@ namespace OnlineShop.Presentation.Extensions;
 
 public static class ValidationErrorHandlerExtension
 {
-    public static ObjectResult HandlerValidationErrors(this ActionContext context)
+    public static ObjectResult HandleValidationErrors(this ActionContext context)
     {
         var errors = context.ModelState.Values
                     .SelectMany(v => v.Errors)
-                    .Select(e => e.ErrorMessage.ToLowerInvariant())
+                    .Select(e =>
+                    {
+                        var message = e.ErrorMessage.ToLowerInvariant();
+                        return message.Substring(0, 1).ToUpper() + message.Substring(1);
+                    })
                     .ToList();
-
-        errors = errors
-            .Select(p => p.Substring(0, 1).ToUpper() + p.Substring(1))
-            .ToList();
 
         var response = new ValidationErrorResponse(errors);
 
