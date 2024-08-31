@@ -1,6 +1,6 @@
 ﻿namespace OnlineShop.Domain.Entities.Base;
 
-public interface IEntity
+public interface IEntity<TId>
 {
-    Guid Id { get; }
+    TId Id { get; }
 }

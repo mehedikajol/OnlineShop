@@ -77,11 +77,4 @@ public class CouponsController : ControllerBase
 
         return response;
     }
-
-    [HttpGet("getpaged")]
-    public async Task<IActionResult> GetPagedResultsAsync([FromQuery] PaginatedRequest request)
-    {
-        var result = await _couponService.GetPaged(request);
-        return Ok(result);
-    }
 }

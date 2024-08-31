@@ -26,7 +26,7 @@ public static class DependencyContainer
 
         // repositories
         //services.AddScoped<IRepository<Coupon>, Repository<Coupon, AppDbContext>>();
-        services.AddRepository<Coupon, AppDbContext>();
+        services.AddRepository<Coupon, Guid, AppDbContext>();
 
         // services
         services.AddScoped<ICouponService, CouponService>();
@@ -34,10 +34,10 @@ public static class DependencyContainer
         return services;
     }
 
-    public static IServiceCollection AddRepository<TEntity, TContext>(this IServiceCollection services)
-        where TEntity : class, IEntity
+    public static IServiceCollection AddRepository<TEntity, TId, TContext>(this IServiceCollection services)
+        where TEntity : class, IEntity<TId>
         where TContext : DbContext
     {
-        return services.AddScoped<IRepository<TEntity>, Repository<TEntity, TContext>>();
+        return services.AddScoped<IRepository<TEntity, TId>, Repository<TEntity, TId, TContext>>();
     }
 }

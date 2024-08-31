@@ -7,8 +7,8 @@ using System.Linq.Expressions;
 
 namespace OnlineShop.Infrastructure.Repositories;
 
-internal class Repository<TEntity, TContext> : IRepository<TEntity>
-    where TEntity : class, IEntity
+internal class Repository<TEntity, TId, TContext> : IRepository<TEntity, TId>
+    where TEntity : class, IEntity<TId>
     where TContext : DbContext
 {
     protected readonly TContext _context;
@@ -30,9 +30,9 @@ internal class Repository<TEntity, TContext> : IRepository<TEntity>
         return await _dbSet.Where(predicate).ToListAsync();
     }
 
-    public async Task<TEntity?> GetAsync(Guid id)
+    public async Task<TEntity?> GetAsync(TId id)
     {
-        return await GetAsync(p => p.Id == id);
+        return await _dbSet.FindAsync(id);
     }
 
     public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate)
@@ -42,8 +42,9 @@ internal class Repository<TEntity, TContext> : IRepository<TEntity>
 
     public async Task<PaginatedData<TEntity>> GetPaginatedDataAsync(PaginatedRequest request)
     {
-        var query = _dbSet.AsQueryable();
         var result = new PaginatedData<TEntity>();
+
+        var query = _dbSet.AsQueryable();
 
         // handle navigation properties
         if (request.NavigationProperties != null && request.NavigationProperties.Any())

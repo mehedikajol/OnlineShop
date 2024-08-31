@@ -1,6 +1,6 @@
 ﻿namespace OnlineShop.Domain.Entities.Base;
 
-public abstract class Entity : IEntity
+public abstract class Entity : IEntity<Guid>
 {
     public Guid Id { get; set; }
 
