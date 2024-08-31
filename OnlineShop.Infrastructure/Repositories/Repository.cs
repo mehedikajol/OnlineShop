@@ -1,18 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineShop.Domain.Entities.Base;
 using OnlineShop.Domain.Repositories;
-using OnlineShop.Infrastructure.Data;
 using System.Linq.Expressions;
 
 namespace OnlineShop.Infrastructure.Repositories;
 
-internal abstract class Repository<TEntity> : IRepository<TEntity>
+internal class Repository<TEntity, TContext> : IRepository<TEntity>
     where TEntity : class, IEntity
+    where TContext : DbContext
 {
-    protected readonly AppDbContext _context;
+    protected readonly TContext _context;
     protected readonly DbSet<TEntity> _dbSet;
 
-    protected Repository(AppDbContext context)
+    public Repository(TContext context)
     {
         _context = context;
         _dbSet = _context.Set<TEntity>();

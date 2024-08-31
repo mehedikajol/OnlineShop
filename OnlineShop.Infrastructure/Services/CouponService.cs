@@ -2,6 +2,7 @@
 using OnlineShop.Application.Extenstions;
 using OnlineShop.Application.IServices;
 using OnlineShop.Application.Responses;
+using OnlineShop.Domain.Entities;
 using OnlineShop.Domain.Enums;
 using OnlineShop.Domain.Repositories;
 
@@ -9,9 +10,9 @@ namespace OnlineShop.Infrastructure.Services;
 
 internal class CouponService : ICouponService
 {
-    private readonly ICouponRepository _couponRepository;
+    private readonly IRepository<Coupon> _couponRepository;
 
-    public CouponService(ICouponRepository couponRepository)
+    public CouponService(IRepository<Coupon> couponRepository)
     {
         _couponRepository = couponRepository;
     }
