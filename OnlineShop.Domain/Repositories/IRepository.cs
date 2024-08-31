@@ -9,7 +9,7 @@ public interface IRepository<TEntity>
 {
     Task<IReadOnlyCollection<TEntity>> GetAllAsync();
     Task<IReadOnlyCollection<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate);
-    Task<PaginatedData<T>> GetPaginatedDataAsync<T>(IQueryable<T> query, PaginatedRequest request);
+    Task<PaginatedData<TEntity>> GetPaginatedDataAsync(PaginatedRequest request);
     Task<TEntity?> GetAsync(Guid id);
     Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate);
     Task CreateAsync(TEntity entity);

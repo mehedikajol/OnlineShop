@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Application.Dtos;
 using OnlineShop.Application.IServices;
 using OnlineShop.Application.Responses;
+using OnlineShop.Domain.Models;
 
 namespace OnlineShop.Presentation.Controllers;
 
@@ -77,4 +78,10 @@ public class CouponsController : ControllerBase
         return response;
     }
 
+    [HttpGet("getpaged")]
+    public async Task<IActionResult> GetPagedResultsAsync([FromQuery] PaginatedRequest request)
+    {
+        var result = await _couponService.GetPaged(request);
+        return Ok(result);
+    }
 }

@@ -4,6 +4,7 @@ using OnlineShop.Application.IServices;
 using OnlineShop.Application.Responses;
 using OnlineShop.Domain.Entities;
 using OnlineShop.Domain.Enums;
+using OnlineShop.Domain.Models;
 using OnlineShop.Domain.Repositories;
 
 namespace OnlineShop.Infrastructure.Services;
@@ -90,5 +91,29 @@ internal class CouponService : ICouponService
         }
 
         return new SuccessResponse(null, "Coupon deleted successfully", 204);
+    }
+
+    public async Task<IResponse> GetPaged(PaginatedRequest request)
+    {
+        try
+        {
+            var paginatedCoupons = await _couponRepository.GetPaginatedDataAsync(request);
+
+            var result = new PaginatedData<CouponDto>
+            {
+                CurrentItemsCount = paginatedCoupons.TotalItemsCount,
+                TotalItemsCount = paginatedCoupons.TotalItemsCount,
+                Items = paginatedCoupons.Items.Select(p => p.ToCouponDto()).ToList(),
+                CurrentPage = paginatedCoupons.CurrentPage,
+                ItemsPerPage = paginatedCoupons.ItemsPerPage,
+                TotalPages = paginatedCoupons.TotalPages
+            };
+
+            return new SuccessResponse(result);
+        }
+        catch (Exception ex)
+        {
+            return new ErrorResponse(ex.Message, 500);
+        }
     }
 }
