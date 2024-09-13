@@ -1,4 +1,4 @@
-﻿namespace OnlineShop.Domain.Entities.Base;
+﻿namespace OnlineShop.SharedKernel.Entities;
 
 public interface IEntity<TId>
 {

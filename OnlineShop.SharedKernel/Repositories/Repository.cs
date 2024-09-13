@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OnlineShop.Domain.Models;
-using OnlineShop.Domain.Repositories;
 using OnlineShop.SharedKernel.Entities;
+using OnlineShop.SharedKernel.Models;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 
-namespace OnlineShop.Infrastructure.Repositories;
+namespace OnlineShop.SharedKernel.Repositories;
 
 internal class Repository<TEntity, TId, TContext> : IRepository<TEntity, TId>
     where TEntity : class, IEntity<TId>

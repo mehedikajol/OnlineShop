@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineShop.Domain.Entities;
-using OnlineShop.Domain.Entities.Base;
 using System.Reflection;
 
 namespace OnlineShop.Infrastructure.Data;

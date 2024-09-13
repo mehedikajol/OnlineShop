@@ -1,11 +1,11 @@
-﻿using OnlineShop.Domain.Models;
-using OnlineShop.SharedKernel.Entities;
+﻿using OnlineShop.SharedKernel.Entities;
+using OnlineShop.SharedKernel.Models;
 using System.Linq.Expressions;
 
-namespace OnlineShop.Domain.Repositories;
+namespace OnlineShop.SharedKernel.Repositories;
 
 public interface IRepository<TEntity, TId>
-    where TEntity : class, IEntity<TId>
+ where TEntity : class, IEntity<TId>
 {
     Task<IReadOnlyCollection<TEntity>> GetAllAsync();
     Task<IReadOnlyCollection<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate);

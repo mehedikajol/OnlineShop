@@ -1,4 +1,6 @@
-﻿namespace OnlineShop.Domain.Entities.Base;
+﻿using OnlineShop.SharedKernel.Entities;
+
+namespace OnlineShop.Domain.Entities;
 
 public abstract class Entity : IEntity<Guid>
 {

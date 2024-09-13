@@ -3,11 +3,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OnlineShop.Application.IServices;
 using OnlineShop.Domain.Entities;
-using OnlineShop.Domain.Entities.Base;
 using OnlineShop.Domain.Repositories;
 using OnlineShop.Infrastructure.Data;
 using OnlineShop.Infrastructure.Repositories;
 using OnlineShop.Infrastructure.Services;
+using OnlineShop.SharedKernel.Entities;
 
 namespace OnlineShop.Infrastructure;
 
