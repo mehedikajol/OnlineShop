@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OnlineShop.Products.Application.Interfaces;
 using OnlineShop.Products.Domain.Entities;
+using OnlineShop.Products.Domain.Entities.Base;
 using OnlineShop.Products.Infrastructure.Data;
 using OnlineShop.Products.Infrastructure.Services;
 using OnlineShop.SharedKernel;
@@ -15,7 +16,7 @@ public static class DependencyResolver
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-        services.AddDbContext<ProductsDbContext>(options => options.UseSqlServer(connectionString)); // <--- AddDbContext<ProductsDbContext>
+        services.AddDbContext<ProductsDbContext>(options => options.UseSqlServer(connectionString));
 
         services.RegisterRepository<Product, Guid, ProductsDbContext>();
 
