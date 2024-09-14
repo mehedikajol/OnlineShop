@@ -1,8 +1,8 @@
-﻿using OnlineShop.Products.Application.Dtos;
+﻿using NetCore.Essentials.Repositories;
+using NetCore.Essentials.Responses;
+using OnlineShop.Products.Application.Dtos;
 using OnlineShop.Products.Application.Interfaces;
 using OnlineShop.Products.Domain.Entities;
-using OnlineShop.SharedKernel.Repositories;
-using OnlineShop.SharedKernel.Responses;
 
 namespace OnlineShop.Products.Infrastructure.Services;
 

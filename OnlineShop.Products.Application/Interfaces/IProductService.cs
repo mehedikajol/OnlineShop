@@ -1,5 +1,5 @@
-﻿using OnlineShop.Products.Application.Dtos;
-using OnlineShop.SharedKernel.Responses;
+﻿using NetCore.Essentials.Responses;
+using OnlineShop.Products.Application.Dtos;
 
 namespace OnlineShop.Products.Application.Interfaces;
 

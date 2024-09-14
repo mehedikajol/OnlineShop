@@ -7,9 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="MediatR" Version="12.4.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
-		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.4.5" />
+		<PackageReference Include="NetCore.Essentials" Version="1.0.2" />
 	</ItemGroup>
 
 </Project>

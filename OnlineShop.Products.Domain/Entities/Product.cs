@@ -1,4 +1,5 @@
-﻿using OnlineShop.Products.Domain.Entities.Base;
+﻿using NetCore.Essentials.Events;
+using OnlineShop.SharedKernel.Entities;
 
 namespace OnlineShop.Products.Domain.Entities;
 
@@ -13,6 +14,8 @@ public sealed class Product : Entity
         Title = title;
         Description = description;
         Price = price;
+
+        AddDomainEvent(new ProductCreatedEvent(Id, title, description, price));
     }
 
     public void Update(string title, string description, decimal price)
@@ -20,5 +23,10 @@ public sealed class Product : Entity
         Title = title;
         Description = description;
         Price = price;
+
+        AddDomainEvent(new ProductUpdatedEvent(Id, title, description, price));
     }
 }
+
+public record ProductCreatedEvent(Guid Id, string Title, string Description, decimal Price) : IEvent;
+public record ProductUpdatedEvent(Guid Id, string Title, string Description, decimal Price) : IEvent;
