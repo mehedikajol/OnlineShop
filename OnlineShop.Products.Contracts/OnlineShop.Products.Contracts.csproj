@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OnlineShop.Products.Contracts\OnlineShop.Products.Contracts.csproj" />
-    <ProjectReference Include="..\OnlineShop.SharedKernel\OnlineShop.SharedKernel.csproj" />
+    <PackageReference Include="NetCore.Essentials" Version="1.0.2" />
   </ItemGroup>
 
 </Project>
